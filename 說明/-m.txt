@@ -1,0 +1,2 @@
+
+testrpc -m "hill curtain grid bar walnut joke myth alert arctic canal slight idle"
