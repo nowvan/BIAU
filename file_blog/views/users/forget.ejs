@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Forget Password</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+		<div style='float:left;margin:10px;'>
+			<a href='/'>Home</a>
+		</div>
+	
+		<div style='float:right'>
+				<a href='/users/register', style='margin:10px;'> Register</a>
+				<a href='/users/signin', style='margin:10px;'> Log In</a>
+			
+		</div>		
+		<div style='padding:50px;'>
+			<form name="login" action="/apis/login" method="post">
+				<h1> Forget Password </h1>
+				<div>
+					<p>
+						<label style='padding-right:50px'> e-mail</label>
+						<input type="text" name="user" placeholder='nowvan@gmail.com'>
+					</p>
+				<p>
+					<span style='padding-right:235px'></span>
+					<input type="submit" name="submit" value="Forget Password">
+					
+				</p>
+				</div>
+			</form>
+		</div>
+  </body>
+</html>
+
+<!--
+doctype html
+html
+	head
+		title= 'Forget Password'
+	body
+		div(style='float:left;margin:10px;')
+			a(href='/') Home
+
+		div(style='float:right')
+				a(href='/users/register', style='margin:10px;') Register
+				a(href='/users/signin', style='margin:10px;') Log In
+	
+		div(style='padding:50px;')
+			form(name="login", action="/apis/login", method="post")
+				h1 Forget Password
+				div
+					p
+						label(style='padding-right:50px') Username or e-mail
+						input(type="text", name="user", placeholder='username@example.com')
+				p
+					span(style='padding-right:210px')
+					input(type="submit", name="submit", value="Forget Password")
+-->

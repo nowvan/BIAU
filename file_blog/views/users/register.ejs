@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Register</title>
+	<script
+	src="http://code.jquery.com/jquery-1.9.1.min.js"
+	integrity="sha256-wS9gmOZBqsqWxgIVgA8Y9WcQOa7PgSIX+rPA0VL2rbQ="
+	crossorigin="anonymous"></script>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+	<style type="text/css">
+		body{
+			height: 100%;
+			background-repeat: no-repeat;
+			background: #F7F7F7;
+			font-family: 'Oxygen', sans-serif;
+		}
+
+		.main{
+			margin-top: 40px;
+		}
+
+
+		hr{
+			width: 10%;
+			color: #fff;
+		}
+
+		.form-group{
+			margin-bottom: 5px;
+		}
+
+		label{
+			margin-bottom: 10px;
+		}
+
+		input,
+		input::-webkit-input-placeholder {
+			font-size: 11px;
+			padding-top: 3px;
+		}
+
+		.main-login{
+			background-color: #fff;
+			/* shadows and rounded borders */
+			-moz-border-radius: 2px;
+			-webkit-border-radius: 2px;
+			border-radius: 2px;
+			-moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+			-webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+			box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+
+		}
+
+		.main-center{
+			margin-top: 10px;
+			margin: 0 auto;
+			max-width: 330px;
+			padding: 40px 40px;
+
+		}
+
+		.login-button{
+			margin-top: 5px;
+		}
+
+		.login-register{
+			font-size: 11px;
+			text-align: center;
+		}
+		
+	</style>
+
+	<script language="javascript">
+function Check()  // 验证表单数据有效性
+{
+	if (document.send.companyname.value=="")
+	{
+		window.alert('請輸入公司名稱!');
+		return false;
+	}
+	if (document.send.email.value=="")
+	{
+		alert('請輸入Email!');
+		return false;
+	}
+	if (document.send.username.value=="")
+	{
+		alert('請輸入使用者名稱!');
+		return false;
+	}
+	if (document.send.password.value=="")
+	{
+		alert('請輸入密碼!');
+		return false;
+	}
+	if (document.send.password.value!= document.send.confirm.value)
+	{
+		alert('密碼不一致!');
+		return false;
+	}
+
+	return true;
+}
+</script>
+
+</head>
+<body>
+	<header>
+		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">Brand</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="/">Home <span class="sr-only">(current)</span></a></li>
+					</ul>
+					<form class="navbar-form navbar-left">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Search">
+						</div>
+						<button type="submit" class="btn btn-default">Submit</button>
+					</form>
+					<ul class="nav navbar-nav navbar-right">									
+						<li><a href="/users/signin">Log In</a></li>						
+						<li><a href="/users/forget">Forgot password</a></li>
+
+					</ul>
+				</div><!-- /.navbar-collapse -->
+			</div><!-- /.container-fluid -->
+		</nav>
+	</header>
+
+
+	<div class="container">
+		<div class="row main">
+			
+				<div class="panel-title text-center">
+					<h1 >register</h1>
+					<hr />
+				</div>
+		
+			<div class="main-login main-center">
+				<form class="form-horizontal" method="post" action="/apis/register" onSubmit="return Check()" name="send" >
+					<p><%= message %></p>
+					<div class="form-group">
+						<label for="companyname" class="cols-sm-2 control-label">公司名稱</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+								<input type="text" class="form-control" name="companyname" id="companyname"  placeholder="Enter Company Name"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="email" class="cols-sm-2 control-label">Email</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+								<input type="email" class="form-control" name="email" id="email"  placeholder="Enter your Email"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="username" class="cols-sm-2 control-label">使用者名稱</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+								<input type="text" class="form-control" name="username" id="username"  placeholder="Enter your Username"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="password" class="cols-sm-2 control-label">密碼</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+								<input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="confirm" class="cols-sm-2 control-label">確認 密碼</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+								<input type="password" class="form-control" name="confirm" id="confirm"  placeholder="Confirm your Password"/>
+							</div>
+						</div>
+					</div>
+						<br>
+					<div class="form-group ">
+						<button type="submit" class="btn btn-primary btn-lg btn-block login-button">Register</button>
+					</div>
+			</div>
+		</div>
+	</div>
+
+				</body>
+				</html>

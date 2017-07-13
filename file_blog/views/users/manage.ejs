@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Manage</title>
+
+	<script
+	src="http://code.jquery.com/jquery-1.9.1.min.js"
+	integrity="sha256-wS9gmOZBqsqWxgIVgA8Y9WcQOa7PgSIX+rPA0VL2rbQ="
+	crossorigin="anonymous"></script>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<style type="text/css">
+		body{
+			background: #F7F7F7;	
+		}	
+	</style>
+	
+</head>
+<body>
+	<header>
+		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">Brand</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="/">Home <span class="sr-only">(current)</span></a></li>
+					</ul>
+					<form class="navbar-form navbar-left">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Search">
+						</div>
+						<button type="submit" class="btn btn-default">Submit</button>
+					</form>
+					<ul class="nav navbar-nav navbar-right">
+						<% if (companyname && authenticated) {%>
+						<li><a href="#"><%= companyname%>.<%= username %></a></li>
+						<li><a href="/users/manage">Manage</a></li>
+						<li><a href="/users/add_file">Add File</a></li>						
+						<li><a href="/users/signout">Sign Out</a></li>
+						<% }else{ %>
+						<li><a href="/users/signin">Log In</a></li>
+						<li><a href="/users/register">Register</a></li>
+						<% } %>			
+					</ul>
+				</div><!-- /.navbar-collapse -->
+			</div><!-- /.container-fluid -->
+		</nav>
+	</header>
+
+
+	
+<br><br>
+<div class="container theme-showcase" role="main">
+
+<div class="page-header">
+        <h1><%= companyname%>.檔案</h1>
+      </div>
+
+<ul class="list-group">
+	<% for(var i = files.length-1 ; i>=0; i--){ %>
+	<li class="list-group-item"><%- fileurl[i] %> <%= files[i].CreateDate %>
+		<a href='/apis/delete/<%= files[i].id %>' style='float:right;margin-right:15px;'> Delete</a>
+			<!--	<a href='/users/modify/<%= files[i].id %>' style='float:right;margin-right:20px;'> Modify</a> -->
+	</li>
+			<% } %>	
+</ul>
+
+<div class="page-header">
+        <h1>Restore</h1>
+      </div>
+<ul class="list-group">
+	<% for(var i = dfiles.length-1 ; i>=0; i--){ %>
+	<li class="list-group-item"><%- dfileurl[i] %> <%= dfiles[i].CreateDate %>
+		<a href='/apis/restore/<%= dfiles[i].id %>' style='float:right;margin-right:15px;'> Restore</a>
+			<!--	<a href='/users/modify/<%= dfiles[i].id %>' style='float:right;margin-right:20px;'> Modify</a> -->
+	</li>
+			<% } %>	
+</ul>
+
+
+</div>
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Modify</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+		<div style='float:left;margin:10px;'>
+			<a href='/'>Home</a>
+		</div>
+
+		<div style='float:right'>
+			<% if (username && authenticated) {%>
+				<span><%= username %></span>
+				<a href='/users/manage', style='margin:10px;'> Manage</a>
+				<a href='/users/add_file', style='margin:10px;'> Add File</a>
+				<a href='/users/signout' style='margin:10px;'> Sign Out</a>							
+			<% }else{ %>
+				<a href='/users/signin', style='margin:10px;'> Log In</a>
+				<a href='/users/register', style='margin:10px;'> Register</a>
+			<% } %>
+		</div>	
+
+		<div style='padding:50px;'>
+			<form name="add" enctype="multipart/form-data" action="/apis/uploadfile" method="post">
+				<h1> Modify File </h1>
+				<div>
+					<p>
+						<span>上傳更新檔案者:</span>
+						<label style='padding-right:50px'> <%= username %> </label>
+					</p>
+					<label>
+                    檔案: <input type="file" name="ULfile">
+                	</label>
+                	<br>
+                	<br>
+					<span style='padding-right:150px'></span>
+					<input type="submit" name="submit" value="Upload">
+				
+				</div>
+			</form>
+		</div>
+  </body>
+
+</html>
+<!--
+doctype html
+html
+	head
+		title= Modify
+	body
+		div(style='float:left;margin:10px;')
+			a(href='/') Home
+
+		div(style='float:right')
+			if (username && authenticated)
+				span #{username}
+				a(href='/users/profile', style='margin:10px;') Profile
+				a(href='/users/add_article', style='margin:10px;') Add Article
+				a(href='/users/signout', style='margin:10px;') Sign Out
+			else
+				a(href='/users/signin', style='margin:10px;') Log In
+				a(href='/users/register', style='margin:10px;') Register
+	
+	div(style='padding:50px;')
+		form(name="modify", action="/apis/update/" + messageID, method="post")
+			h1 Modify Article
+			div
+				p
+					span Writer: 
+					label(style='padding-right:50px') #{username}
+				p
+					textarea(cols="50", rows="25", style='resize : none;', name="Content") #{blogs[0].Article)
+				div
+					span(style='padding-right:377px')
+					input(type="submit", name="submit", value="Update")
+
+-->

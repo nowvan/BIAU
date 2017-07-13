@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>filelist</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+  <hr>
+
+    <h1>File List</h1>
+<hr>
+
+	 <% for(var i=0; i<title.length; i++) { %>
+        <h3>
+            <a href="/<%= title[i] %>">
+                <%= title[i] %>
+            </a>
+        </h3>
+    <% } %>
+<hr>
+
+<!--<%- text %>-->
+  </body>
+
+</html>
