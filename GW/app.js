@@ -6,8 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var fs = require('fs');
 var Web3 = require('web3');
-var http = require('http');
-var https = require('https');
+var request = require('request');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -29,6 +28,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/users', users);
 
+var company = "amos";
+
 const ethereumUri = 'http://localhost:8545';
 var web3 = new Web3();
 var eth = web3.eth;
@@ -36,78 +37,8 @@ web3.setProvider(new web3.providers.HttpProvider(ethereumUri));
 
 //////////////////////////////////////////
 var producecontract = web3.eth.contract(
-		[
-			  {
-			    "constant": false,
-			    "inputs": [],
-			    "name": "isCompany",
-			    "outputs": [
-			      {
-			        "name": "",
-			        "type": "bool"
-			      }
-			    ],
-			    "payable": false,
-			    "type": "function"
-			  },
-			  {
-			    "constant": false,
-			    "inputs": [
-			      {
-			        "name": "filename",
-			        "type": "string"
-			      },
-			      {
-			        "name": "url",
-			        "type": "string"
-			      }
-			    ],
-			    "name": "putFile",
-			    "outputs": [],
-			    "payable": false,
-			    "type": "function"
-			  },
-			  {
-			    "constant": true,
-			    "inputs": [],
-			    "name": "company",
-			    "outputs": [
-			      {
-			        "name": "",
-			        "type": "address"
-			      }
-			    ],
-			    "payable": false,
-			    "type": "function"
-			  },
-			  {
-			    "inputs": [],
-			    "payable": false,
-			    "type": "constructor"
-			  },
-			  {
-			    "anonymous": false,
-			    "inputs": [
-			      {
-			        "indexed": false,
-			        "name": "from",
-			        "type": "address"
-			      },
-			      {
-			        "indexed": false,
-			        "name": "Filename",
-			        "type": "string"
-			      },
-			      {
-			        "indexed": false,
-			        "name": "Url",
-			        "type": "string"
-			      }
-			    ],
-			    "name": "dataSet",
-			    "type": "event"
-			  }
-			]).at("0x31fa3965dc8a7d5f226498f98fe1839a10c35ac8")
+		[{"constant":true,"inputs":[{"name":"company","type":"string"}],"name":"getFileInfo","outputs":[{"name":"filename","type":"string"},{"name":"url","type":"string"},{"name":"newest","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"BIAU","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"company","type":"string"},{"name":"filename","type":"string"},{"name":"url","type":"string"},{"name":"newest","type":"string"}],"name":"putFileInfo","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"isBIAU","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"company","type":"string"},{"indexed":false,"name":"filename","type":"string"},{"indexed":false,"name":"url","type":"string"},{"indexed":false,"name":"newest","type":"string"}],"name":"fileUploadEvent","type":"event"}]
+		).at("0x34776ae81d5ce7062fb80fca21e0b059feed8eda")
 
 
  //以 eth.contract 參照 ABI 製造出合約正本
@@ -120,22 +51,33 @@ contractControl(producecontract, eth);
 function contractControl(producecontract, eth) {
 
 // 當 simplgestorage 的 setEvent 被發射的時候，就會被如此接住
-producecontract.dataSet({}, function(err, eventdata) {
-console.log('dataSet fired : ');
-console.log(eventdata.args);
-console.log("START DONLOAD");
+
+producecontract.fileUploadEvent({}, function(err, eventdata) {
+	
+	
+	
+	console.log('dataSet fired : ');
+	console.log(eventdata.args);
+	if(company === eventdata.args.company){
+		console.log("START DONLOAD");
+
 
 ///////////////////
-//var httpClient = eventdata.args.Url.slice(0, 5) === 'https' ? https : http;
-//var writer = fs.createWriteStream(localFile);
-//writer.on('finish', function() {
-//  callback(localFile);
-//});
-//httpClient.get(eventdata.args.Url, function(response) {
-//  response.pipe(writer);
-//});
+		function downloadFile(url,filename,callback){
+			var stream = fs.createWriteStream(filename);
+			request(url).pipe(stream).on('close', callback); 
+		}
+
+		var fileUrl  = eventdata.args.url;
+		var fileName = eventdata.args.filename;
+		downloadFile(fileUrl,fileName,function(){
+			console.log(fileName+'下载完毕');
+		});
+	}
 
 ////////////////
+
+
 })
 //////////////////////////////////////////
 }
