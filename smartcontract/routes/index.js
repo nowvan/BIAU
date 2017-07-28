@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 var express = require('express');
 var router = express.Router();
 const fs = require('fs');
@@ -9,6 +11,7 @@ const Web3 = require('web3');
 router.get('/', function(req, res, next) {
 	
 	var contractAddress;
+	
 	
 	/*
 	* connect to ethereum node
@@ -54,12 +57,12 @@ router.get('/', function(req, res, next) {
 	    var bytecode = compiledContract.contracts[contractName].bytecode;
 	    var abi = JSON.parse(compiledContract.contracts[contractName].interface);
 	}
-
+	JSONabi= JSON.stringify(abi, undefined, 2);
 	console.log(JSON.stringify(abi, undefined, 2));
 
 
 	/////////////////////////////////////////////////////////////////////
-	let gasEstimate = web3.eth.estimateGas({data: '0x' + bytecode});
+	let gasEstimate = web3.eth.estimateGas({data: '0x' + bytecode });
 	console.log('gasEstimate = ' + gasEstimate);
 
 	let MyContract = web3.eth.contract(abi);
@@ -68,7 +71,7 @@ router.get('/', function(req, res, next) {
 	let myContractReturned = MyContract.new([], {
 	    from: address,
 	    data: '0x'+ bytecode,
-	    gas: gasEstimate + 50000
+	    gas: gasEstimate 
 	}, function (err, myContract) {
 	    if (!err) {
 	        // NOTE: The callback will fire twice!
@@ -97,10 +100,40 @@ router.get('/', function(req, res, next) {
 	setTimeout(function () {
 	    console.log(Date.now() - start + 'GG!\r\n');
 	    res.render('index', {contractAddress: contractAddress });
+	    
+	    console.log(contractAddress);
+		
+		// simpleStorage 的 ABI
+		var producecontract = web3.eth.contract(
+				abi).at(contractAddress)
+	    
+		 //以 eth.contract 參照 ABI 製造出合約正本
+	    contractControl(producecontract, eth);
+	    
 	}, 2000);
 	
-	
- 
 });
+
+function contractControl(producecontract, eth) {
+	
+//	var txHash = producecontract.putFileInfo("黑松","file-1.1.1.rar","0xca35b7d915458ef540ade6068dfe2f44e8fa733c1111","這次很棒喔",
+//	        {
+//				from: eth.accounts[0],
+//				gas: 3141592
+//			})
+//	      
+//	        console.log('txHash is : ' + txHash);
+//	    	console.log('檔案以上傳  ');
+	
+	// 當 simplgestorage 的 setEvent 被發射的時候，就會被如此接住
+    producecontract.fileUploadEvent({}, function(err, eventdata) {
+		console.log('dataSet fired : ');
+		console.log(eventdata);
+		console.log("收到");
+	})     
+	    
+    
+}
+
 
 module.exports = router;
