@@ -7,16 +7,19 @@ var File = mongoose.model('File');
 var DFile = mongoose.model('DFile');
 var Logindata = mongoose.model('Logindata');
 var fs = require('fs');
+var Web3 = require('web3');
 
 router.post('/uploadfile', function(req, res) {
 
+	
+	//檔案存入路徑
 	var path = '../public/uploads/'+ req.session.companyname;
 	fs.mkdir(path, function (err) {
 		if (err) {
 			console.log('failed to create directory', err);
 		} 
 	});
-	
+	//multer儲存資訊
 	var storage = multer.diskStorage({
 		destination : function(req, file, callback) {
 			callback(null, path);
@@ -54,7 +57,7 @@ router.post('/uploadfile', function(req, res) {
 		console.log(req.file);
 		res.redirect('/users/uploadssuccess');
 		console.log('File Uploaded');
-		
+		//寫入資料庫
 		new File({
 			Companyname : req.session.companyname,
 			Originalname : req.file.originalname,
@@ -67,9 +70,43 @@ router.post('/uploadfile', function(req, res) {
 			}
 			console.log('Save to DB.');
 		});
+		
+		//寫入智能合約
+		const ethereumUri = 'http://localhost:8545';
+		var web3 = new Web3();
+		var eth = web3.eth;
+		web3.setProvider(new web3.providers.HttpProvider(ethereumUri));
+
+		var producecontract = web3.eth.contract(
+				[{"constant":true,"inputs":[{"name":"company","type":"string"}],"name":"getFileInfo","outputs":[{"name":"filename","type":"string"},{"name":"url","type":"string"},{"name":"newest","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"BIAU","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"company","type":"string"},{"name":"filename","type":"string"},{"name":"url","type":"string"},{"name":"newest","type":"string"}],"name":"putFileInfo","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"isBIAU","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"company","type":"string"},{"indexed":false,"name":"filename","type":"string"},{"indexed":false,"name":"url","type":"string"},{"indexed":false,"name":"newest","type":"string"}],"name":"fileUploadEvent","type":"event"}]
+				).at("0x249cd5b06cdf2f43e2c23acd96236f009924db5b")
+
+
+		
+		contractControl(producecontract, eth);
+		function contractControl(producecontract, eth) {
+			
+			var txHash = producecontract.putFileInfo(req.session.companyname,req.file.originalname,req.file.filename,"怎麼會這樣!!",
+			        {
+						from: eth.accounts[0],
+						gas: 3141592
+					})
+			      
+			console.log('txHash is : ' + txHash);
+			console.log('檔案以上傳  ');
+			
+		//////////////////////////////////////////
+		}
+		//接收event
+//		producecontract.fileUploadEvent({}, function(err, eventdata) {	
+//			console.log('dataSet fired : ');
+//			console.log(eventdata.args);
+//		})
+
+		
+		
 	});
-
-
+	
 
 });
 
@@ -113,7 +150,7 @@ router.get('/delete/:id', function(req, res, next) {
 		
 		
 		fs.rename(__dirname.slice(0, -7)+'/public/uploads/'+files[0].Companyname+'/'+ files[0].Filename, __dirname.slice(0, -7)+'/public/uploads/'+files[0].Companyname+'/delete/'+ files[0].Filename, function(err) {
-			if ( err ) console.log('ERROR: ' + err);
+			if ( err ) {console.log('ERROR: ' + err);}
 		});
 		
 		
@@ -164,7 +201,7 @@ router.get('/restore/:id', function(req, res, next) {
 		
 		
 		fs.rename( __dirname.slice(0, -7)+'/public/uploads/'+files[0].Companyname+'/delete/'+ files[0].Filename , __dirname.slice(0, -7)+'/public/uploads/'+files[0].Companyname+'/'+ files[0].Filename, function(err) {
-			if ( err ) console.log('ERROR: ' + err);
+			if ( err ) {console.log('ERROR: ' + err);}
 		});
 		
 		
@@ -222,8 +259,8 @@ router.post('/register', function(req, res, next) {
 				if (logindatas.length === 0) {
 					new Logindata({
 						Companyname : req.body.companyname,
-						Email :　req.body.email,
-						Username　:　req.body.username,
+						Email : req.body.email,
+						Username : req.body.username,
 						Password : req.body.password,
 						CreateDate : Date.now()
 					}).save(function(err) {
