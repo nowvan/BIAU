@@ -1,3 +1,6 @@
+/*jshint esversion: 6 */
+/* eslint-env mocha */
+/* eslint max-nested-callbacks: ["error", 8] */
 require('../lib/db');
 var express = require('express');
 var multer = require('multer');
@@ -8,6 +11,21 @@ var DFile = mongoose.model('DFile');
 var Logindata = mongoose.model('Logindata');
 var fs = require('fs');
 var Web3 = require('web3');
+const IPFS = require('ipfs');
+const os = require('os');
+var chai = require('chai');
+var expect = chai.expect;
+var assert = chai.assert;
+const dirtyChai = require('dirty-chai');
+chai.use(dirtyChai);
+const bs58 = require('bs58');
+const Readable = require('readable-stream');
+const loadFixture = require('aegir/fixtures');
+const bl = require('bl');
+const isNode = require('detect-node');
+const concat = require('concat-stream');
+const through = require('through2');
+const Buffer = require('safe-buffer').Buffer;
 
 router.post('/uploadfile', function(req, res) {
 
@@ -57,7 +75,9 @@ router.post('/uploadfile', function(req, res) {
 		console.log(req.file);
 		res.redirect('/users/uploadssuccess');
 		console.log('File Uploaded');
-		//寫入資料庫
+		
+		
+		//寫入資料庫(檔案資訊)
 		new File({
 			Companyname : req.session.companyname,
 			Originalname : req.file.originalname,
@@ -76,27 +96,29 @@ router.post('/uploadfile', function(req, res) {
 		var web3 = new Web3();
 		var eth = web3.eth;
 		web3.setProvider(new web3.providers.HttpProvider(ethereumUri));
-
-		var producecontract = web3.eth.contract(
-				[{"constant":true,"inputs":[{"name":"company","type":"string"}],"name":"getFileInfo","outputs":[{"name":"filename","type":"string"},{"name":"url","type":"string"},{"name":"newest","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"BIAU","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"company","type":"string"},{"name":"filename","type":"string"},{"name":"url","type":"string"},{"name":"newest","type":"string"}],"name":"putFileInfo","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"isBIAU","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"company","type":"string"},{"indexed":false,"name":"filename","type":"string"},{"indexed":false,"name":"url","type":"string"},{"indexed":false,"name":"newest","type":"string"}],"name":"fileUploadEvent","type":"event"}]
-				).at("0x249cd5b06cdf2f43e2c23acd96236f009924db5b")
-
-
 		
-		contractControl(producecontract, eth);
 		function contractControl(producecontract, eth) {
 			
 			var txHash = producecontract.putFileInfo(req.session.companyname,req.file.originalname,req.file.filename,"怎麼會這樣!!",
 			        {
 						from: eth.accounts[0],
 						gas: 3141592
-					})
+					});
 			      
 			console.log('txHash is : ' + txHash);
 			console.log('檔案以上傳  ');
 			
 		//////////////////////////////////////////
 		}
+
+		var producecontract = web3.eth.contract(
+				[{"constant":true,"inputs":[{"name":"company","type":"string"}],"name":"getFileInfo","outputs":[{"name":"filename","type":"string"},{"name":"url","type":"string"},{"name":"newest","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"BIAU","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"company","type":"string"},{"name":"filename","type":"string"},{"name":"url","type":"string"},{"name":"newest","type":"string"}],"name":"putFileInfo","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"isBIAU","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"company","type":"string"},{"indexed":false,"name":"filename","type":"string"},{"indexed":false,"name":"url","type":"string"},{"indexed":false,"name":"newest","type":"string"}],"name":"fileUploadEvent","type":"event"}]
+				).at("0xfd59d3ffa49c3b290af84b418601abecc817eceb");
+
+
+		
+		contractControl(producecontract, eth);
+		
 		//接收event
 //		producecontract.fileUploadEvent({}, function(err, eventdata) {	
 //			console.log('dataSet fired : ');
