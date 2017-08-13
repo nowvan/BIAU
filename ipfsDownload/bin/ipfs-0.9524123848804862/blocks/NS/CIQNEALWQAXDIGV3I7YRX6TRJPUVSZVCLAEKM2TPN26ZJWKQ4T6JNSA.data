@@ -1,0 +1,13 @@
+
+ ˜(read me)jsipfs files cat /ipfs/QmPZ9gcCEpqKTo6aq61g2nXGUhM4iCL3ewB6LDXZCtioEB
+
+(id)
+"id": "Qmew9a5oLdEig9TemgEFAvEt7MUFA5X1pU7gawiprbKtTf",
+  "publicKey": "CAASpgIwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDO2NQphkCjgc01hagf4OUo76hDaxGxTNoXocj7Ajp54PcWymdGObr8Tjd7T9Fprmoj2Oppq5qB9Uv0Xj3HCvextcRzeHmrpAnUxiMdCOwHb6w9y/7mTYQPxqH9sMDuMB8z6Klp2RCEZHphwPZGFYVMkY3z2vTgvSCoq5cpU166ISYmQTC9+ObQQQOviE0+xJ6RfWLuINkZnxeeQ+HBHbXfYJFXJMbxbul+wPPYWB6wI6I/bk4ezOboIv2a0pYQ8zm/F3Sq92MT+kD+1nF/EyddGG8EXZU5lcbiPX5pUCOeawv21H5/M2rSXxE5HPkhYTdTR/+57mPPGRTmKfrVINMzAgMBAAE=",
+  "addresses": [
+    "/ip4/0.0.0.0/tcp/4002/ipfs/Qmew9a5oLdEig9TemgEFAvEt7MUFA5X1pU7gawiprbKtTf",
+    "/ip4/127.0.0.1/tcp/4003/ws/ipfs/Qmew9a5oLdEig9TemgEFAvEt7MUFA5X1pU7gawiprbKtTf",
+    "/libp2p-webrtc-star/dns4/star-signal.cloud.ipfs.team/wss/ipfs/Qmew9a5oLdEig9TemgEFAvEt7MUFA5X1pU7gawiprbKtTf"
+  ],
+  "agentVersion": "js-ipfs",
+  "protocolVersion": "9000"˜

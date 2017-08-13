@@ -1,0 +1,35 @@
+{
+  "Addresses": {
+    "Swarm": [
+      "/ip4/0.0.0.0/tcp/4002",
+      "/ip4/127.0.0.1/tcp/4003/ws",
+      "/libp2p-webrtc-star/dns4/star-signal.cloud.ipfs.team/wss"
+    ],
+    "API": "/ip4/127.0.0.1/tcp/5002",
+    "Gateway": "/ip4/127.0.0.1/tcp/9090"
+  },
+  "Discovery": {
+    "MDNS": {
+      "Enabled": true,
+      "Interval": 10
+    },
+    "webRTCStar": {
+      "Enabled": true
+    }
+  },
+  "Bootstrap": [
+    "/ip4/104.131.131.82/tcp/4001/ipfs/QmaCpDMGvV2BGHeYERUEnRQAwe3N8SzbUtfsmvsqQLuvuJ",
+    "/ip4/104.236.176.52/tcp/4001/ipfs/QmSoLnSGccFuZQJzRadHn95W2CrSFmZuTdDWP8HXaHca9z",
+    "/ip4/104.236.179.241/tcp/4001/ipfs/QmSoLPppuBtQSGwKDZT2M73ULpjvfd3aZ6ha4oFGL1KrGM",
+    "/ip4/162.243.248.213/tcp/4001/ipfs/QmSoLueR4xBeUbY9WZ9xGUUxunbKWcrNFTDAadQJmocnWm",
+    "/ip4/128.199.219.111/tcp/4001/ipfs/QmSoLSafTMBsPKadTEgaXctDQVcqN88CNLHXMkTNwMKPnu",
+    "/ip4/104.236.76.40/tcp/4001/ipfs/QmSoLV4Bbm51jM9C4gDYZQ9Cy3U6aXMJDAbzgu2fzaDs64",
+    "/ip4/178.62.158.247/tcp/4001/ipfs/QmSoLer265NRgSp2LA3dPaeykiS1J6DifTC88f5uVQKNAd",
+    "/ip4/178.62.61.185/tcp/4001/ipfs/QmSoLMeWqB7YGVLJN3pNLQpmmEk35v6wYtsMGLzSr5QBU3",
+    "/ip4/104.236.151.122/tcp/4001/ipfs/QmSoLju6m7xTh3DuokvT3886QRYqxAzb1kShaanJgW36yx"
+  ],
+  "Identity": {
+    "PeerID": "QmQjasukA5gccjNPnhiTW6btt8xYsc9M8ozF96pLCPBoQe",
+    "PrivKey": "CAASpwkwggSjAgEAAoIBAQDFD9z1GfNyVkKpZD1roAI/LCEcNXTf3B7s0J3VmaJ+y0knWPxl/73+hnVKDigZHhCUzP7kOOjyd2lbsPIX0CQL8ceuZ/B0RV29lfsGv9q8KCVfM68qTuPNQ3KSr8jv51WDJ11y4pm1VBowSvO7Hzf50feRkf8A/y+kov/c2rcMTG8nc9EoGoXBxACODk3TcgNRGtlBv57pYjxp28D5+BaQrgQPLOvTQHJ+Yx1UYoORlxWi4yY4iNS03ZmBg1+M4taZd+GZgabVNOGFcreLwI2CqWA29wOv5pgTbK6jsuMdziHvKfLsEIPTKryFMD8PhcpyHUhK341pi8MWX0Is9gWnAgMBAAECggEBALg0XNnsGSnewk9vOQ66sn70tDqXKZn8PBgn5fH9u+yD/+y8/KonxiT+8PJ5izf3Z46AlR8mp3HG94BTRenGkXts1bgMxrMZCEgow08K1d+eM1jriiilN8Hu81F06gJ/HusLSAoVEZNze0t7NJvM0dk/UQkNDO6Um6dtCnkbJZJi2A71f0+Upevx5XhByUoGGnmRLcbraFAL7wZgWpgyUEJ2l7zkJuac4NHaKL3sgAZX+DvYEVOWN5zSI7MJvS3Ci9UiZschCmHeuqMlyeUbeH4KzyS/0X2bjgesX6YBgvroooN5P8P06/cLUGpwqLMfseid0gSyHlGZlTV0hWry2MkCgYEA6r0r2o0F6K0ZHglieGtyWvLjaQxGQOCyZWb86sTQgB2XbRfgxLcSiK6AecoIwid3gAvKo5qdK2TwXYnJ5xQZlCgrB9PSp/XMdU/dA5WLf9N7oSGJxfWz/Og2D2uUCZ3TjxJK9h32JMJt+DEFkUoYAX9CiBgXxcdJ2d/rg6qE8YUCgYEA1ukV8hRr9SfbhlpvQk/TnFFQUVS9SgttWq5X7Eg7P0ra34vY7jH7NarhusMMUVBIDME89APuobcFDj8I2uo1nUq7kcbjSZhM3pWwICgUhusvg2dAtdvf8Rn+rsErS1RttANYvLAyRCul35A1PxqWenbrZ60Buk3zIu5CdIzprDsCgYAGjf25fpKZqqu24QA06Jsq2vlqp4MWsK+KkVOiophH24us6ivGkm4cDvNbcz7HXR7DHpEr/FdDLPBhTEWtBCyqrGx3LX0GX6Cz7eT4AqcAjME5AJy+QFwkRb+sso5RrmyH5DTfpnqHED7N3WCQbAc7k3giILoZNbVkNhJ3fL11mQKBgEIB60SkMxhkOo/EfQGwBP2xF+szDMSOR/MfM1AWS2RAOIOKr4FRhqfQKW60c7cR4l9Qhskn4AZ5cSsT/0NFxlveVUgL/0leZtXCwgrOZKef2sMQVpbExr6FzmycVhDYCK3OjVW/BGFdyp+k6kXMg8VvexQn1i0DvhbPeUfU8/x7AoGAMhBWyRhn66wRoqdSX/18Gvp3t7Wi+LUjMcBw+6mF1tdVNgeOtPlzur1wMxafnpWxgnTgYUUwP9VeyZuNuSi5ovJwHWYgn2t3PjbCHRPK5QNYWHsJrshVwmJgZ9ZT7bq1HtWCJMxPfjmRV69LKHAFX9LrXMl6w6ZKhTodAJ83iEE="
+  }
+}
