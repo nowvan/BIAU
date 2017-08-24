@@ -1,14 +1,12 @@
 /* 使用者刪除檔案功能. */
 require('../lib/db');
 var express = require('express');
-var multer = require('multer');
 var router = express.Router();
 var mongoose = require('mongoose');
 var File = mongoose.model('File');
 var DFile = mongoose.model('DFile');
-var Logindata = mongoose.model('Logindata');
 var fs = require('fs');
-var Web3 = require('web3');
+
 
 router.get('/delete/:id', function(req, res, next) {
 	
@@ -22,18 +20,16 @@ router.get('/delete/:id', function(req, res, next) {
 	File.find({
 		_id : req.params.id
 	}, function(err, files, count) {
-		// console.log(files);
-		// console.log(__dirname.slice(0,-7) +
-		// '/public/uploads/'+files[0].Filename);
-		
-//		fs.unlink(__dirname.slice(0, -7) + '/public/uploads/'+files[0].Companyname+'/'+ files[0].Filename, function(err) {
-//			if (err) {
-//				throw err;
-//			} else {
-//				console.log('目录删除成功');
-//			}
-//		});
-		
+/*        原本要真的刪掉時的程式碼 現在轉為其他資料夾 所以不用
+		fs.unlink(__dirname.slice(0, -7) + '/public/uploads/'+files[0].Companyname+'/'+ files[0].Filename, function(err) {
+			if (err) {
+				throw err;
+			} else {
+				console.log('目录删除成功');
+			}
+		});
+*/
+		//把資料寫入暫時刪除的資料庫裡
 		new DFile({
 			Companyname : files[0].Companyname,
 			Originalname : files[0].Originalname,
@@ -43,38 +39,26 @@ router.get('/delete/:id', function(req, res, next) {
 			if (err) {
 				console.log('Fail to save to DB.');
 				return;
+			}else{
+				console.log('Save to DB.');
+				//把檔案移動到 delete資料夾裡
+				fs.rename(__dirname.slice(0, -7)+'/public/uploads/'+files[0].Companyname+'/'+ files[0].Filename, __dirname.slice(0, -7)+'/public/uploads/'+files[0].Companyname+'/delete/'+ files[0].Filename, function(err) {
+					if ( err ) {console.log('ERROR: ' + err);}
+					//移掉資料庫裡的資料	
+					File.remove({
+						_id : req.params.id
+					}, function(err) {
+						if (err) {
+							console.log('Fail to delete article.');
+						} else {
+							console.log('Done');
+							res.redirect('/users/manage');
+						}
+					});// File.remove
+				});	//把檔案移動到 delete資料夾裡
 			}
-			console.log('Save to DB.');
-		});
-		
-		
-		fs.rename(__dirname.slice(0, -7)+'/public/uploads/'+files[0].Companyname+'/'+ files[0].Filename, __dirname.slice(0, -7)+'/public/uploads/'+files[0].Companyname+'/delete/'+ files[0].Filename, function(err) {
-			if ( err ) {console.log('ERROR: ' + err);}
-		});
-		
-		
-		
-		File.remove({
-			_id : req.params.id
-		}, function(err) {
-			if (err) {
-				console.log('Fail to delete article.');
-			} else {
-				console.log('Done');
-				res.redirect('/users/manage');
-			}
-		});
-	});
-
-//	setTimeout(function() {
-//
-//		callback(null);
-//		}, 1000);
-
-
-//	setTimeout(function () {
-//		res.redirect('/users/manage');    
-//	}, 1000);
-//	
+		});// DFile save
+	});// File.find
 });
+
 module.exports = router;

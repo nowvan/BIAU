@@ -1,8 +1,29 @@
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
-var mongoose = require('mongoose');
-var File = mongoose.model('File');
+
+// 得到檔案 
+router.get('/:name', function (req, res, next) {
+	 
+	  var options = {
+	    root: __dirname.slice(0,-7) + '/public/uploads/'+req.query.companyname + '/',
+	    dotfiles: 'deny',
+	    headers: {
+	        'x-timestamp': Date.now(),
+	        'x-sent': true
+	    }
+	  };
+	  
+	  var fileName = req.params.name;	  
+//	  console.log(fileName,options.root);
+	  res.sendFile(fileName, options, function (err) {
+	    if (err) {
+	      next(err);
+	    } else {
+	      console.log('Sent:', fileName);
+	    }
+	  });	  	  
+}); 
 
 //最原先老師要我做的東西，自己列出在資料夾裡的檔案  GET listfile page.
 router.get('/',function(req, res, next) {  
@@ -11,14 +32,14 @@ router.get('/',function(req, res, next) {
 		var directory = [];
 		fs.readdir(dirname, function(err, list) {
 			dirname = fs.realpathSync(dirname);
-			//console.log(dirname);///////////////////
+			
 			if (err) {
 				return callback(err);
 			}
 			var listlength = list.length;
-			console.log(list);//////////////////////////
+			
 			list.forEach(function(file) {
-				// file = dirname + '\\' + file;
+				
 				file = 'file/'+file;
 				fs.stat(file, function(err, stat) {
 					directory.push(file);
@@ -50,32 +71,5 @@ router.get('/',function(req, res, next) {
 		});
 	});
 });
-
-
-/* GET file */
-router.get('/:name', function (req, res, next) {
-	 
-		
-	//console.log(__dirname.slice(0,-7));	
-	  var options = {
-	    root: __dirname.slice(0,-7) + '/public/uploads/'+req.query.companyname + '/',
-	    dotfiles: 'deny',
-	    headers: {
-	        'x-timestamp': Date.now(),
-	        'x-sent': true
-	    }
-	  };
-	  
-	  var fileName = req.params.name;	  
-//	  console.log(fileName,options.root);
-	  res.sendFile(fileName, options, function (err) {
-	    if (err) {
-	      next(err);
-	    } else {
-	      console.log('Sent:', fileName);
-	    }
-	  });	  	  
-}); 
-
 
 module.exports = router;
