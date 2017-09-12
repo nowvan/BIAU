@@ -31,7 +31,28 @@ const Buffer = require('safe-buffer').Buffer;
 var node;
 var hashToPass;
 var fileToAdd;
-function handleInit (err) {
+
+//產生IPFS節點&init node
+console.log('start');
+const repoPath = 'Upload';
+console.log(repoPath);
+node = new IPFS({
+  init: true,
+  repo: repoPath,
+  config: {
+	    Addresses: {
+	        Swarm: [
+	          "/ip4/0.0.0.0/tcp/4005",
+	          "/ip4/127.0.0.1/tcp/4006/ws",
+	          "/libp2p-webrtc-star/dns4/star-signal.cloud.ipfs.team/wss"
+	        ]
+	      }
+	    }
+});
+//start node
+node.on('start', () => {});
+
+function ipfsUpload (err) {
 	  if (err) {
 	    throw err;
 	  }
@@ -56,6 +77,8 @@ function handleInit (err) {
 	  });
 
 }
+
+
 
 router.post('/uploadfile', function(req, res) {
 	
@@ -116,18 +139,8 @@ router.post('/uploadfile', function(req, res) {
 		console.log(path);
 		console.log(originalname);
 		
-		//產生IPFS節點
-		console.log('start');
-		const repoPath = 'ipfs-' + Math.random();
-		console.log(repoPath);
-		node = new IPFS({
-		  init: true,
-		  start: true,
-		  repo: repoPath
-		});
-		
-		//初始化node&呼叫ADD函式
-		node.init(handleInit);
+		//呼叫ADD函式
+		ipfsUpload();
 		
 		//寫入資料庫(檔案資訊)
 		new File({
@@ -166,7 +179,7 @@ router.post('/uploadfile', function(req, res) {
 	
 			var producecontract = web3.eth.contract(
 					[{"constant":true,"inputs":[{"name":"company","type":"string"}],"name":"getFileInfo","outputs":[{"name":"filename","type":"string"},{"name":"url","type":"string"},{"name":"newest","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"BIAU","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"company","type":"string"},{"name":"filename","type":"string"},{"name":"url","type":"string"},{"name":"newest","type":"string"}],"name":"putFileInfo","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"isBIAU","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"company","type":"string"},{"indexed":false,"name":"filename","type":"string"},{"indexed":false,"name":"url","type":"string"},{"indexed":false,"name":"newest","type":"string"}],"name":"fileUploadEvent","type":"event"}]
-					).at("0x07ea018f99691fc9b65718d7b8461ae3f11da661");
+					).at("0xc8cfc2ff2445e17a81dfdbbfe8dcf67297704b04");
 	
 	
 			

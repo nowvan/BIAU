@@ -7,9 +7,11 @@
   },
   "dependencies": {
     "body-parser": "~1.17.1",
+    "chai": "^4.1.2",
     "cookie-parser": "~1.4.3",
     "cookie-session": "*",
     "debug": "~2.6.3",
+    "dirty-chai": "^2.0.1",
     "ejs": "~2.5.6",
     "express": "~4.15.2",
     "ipfs": "^0.25.1",

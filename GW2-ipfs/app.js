@@ -1,5 +1,6 @@
 /*jshint esversion: 6 */
 /* eslint-env mocha */
+/*jshint -W055 */
 /* eslint max-nested-callbacks: ["error", 8] */
 var express = require('express');
 var path = require('path');
@@ -26,6 +27,7 @@ const isNode = require('detect-node');
 const concat = require('concat-stream');
 const through = require('through2');
 const Buffer = require('safe-buffer').Buffer;
+var adm_zip = require('adm-zip');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -50,24 +52,36 @@ const ethereumUri = 'http://localhost:8545';
 var web3 = new Web3();
 var eth = web3.eth;
 web3.setProvider(new web3.providers.HttpProvider(ethereumUri));
-var company = "van";
+var company = "黑松";
 var fileUrl;
 var fileName;
 
 var node;
 
 
+/////////////////IPFS//////////////////
+console.log('start');
+const repoPath = 'GW2';
+console.log(repoPath);
+// Create an IPFS node & init
+node = new IPFS({
+  init: true,
+  repo: repoPath
+});
+//Start node
+node.on('start', () => {});
+
 
 //////////////////////events////////////////////
 var producecontract = web3.eth.contract(
 		[{"constant":true,"inputs":[{"name":"company","type":"string"}],"name":"getFileInfo","outputs":[{"name":"filename","type":"string"},{"name":"url","type":"string"},{"name":"newest","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"BIAU","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"company","type":"string"},{"name":"filename","type":"string"},{"name":"url","type":"string"},{"name":"newest","type":"string"}],"name":"putFileInfo","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"isBIAU","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"company","type":"string"},{"indexed":false,"name":"filename","type":"string"},{"indexed":false,"name":"url","type":"string"},{"indexed":false,"name":"newest","type":"string"}],"name":"fileUploadEvent","type":"event"}]
-		).at("0xd12d45cab9d5b7a045665dd0a92c7174d436fead");
-///////////afterNodeInit/////////////////
-function handleInit (err) {
+		).at("0xc8cfc2ff2445e17a81dfdbbfe8dcf67297704b04");
+
+/////////////afterNodeInit//////////////////
+function ipfsDownload (err) {
 	  if (err) {
 	    throw err;
 	  }
-	  
 	  
 	  setTimeout(function(){
 		  node.start(() => {
@@ -79,9 +93,9 @@ function handleInit (err) {
 			  //const hash = 'QmZSm2NANrdEREwhesUwU9htLdg9PZXr7tSSguBHz1ZdXR';
 			  //const hash = 'QmTuneUZdjb9RA2oLHG333NtjAi9WoEPxssnarTWBFwFf8';
 			  const hash = fileUrl;
-			  //console.log(hash);
 			  node.files.get(hash, (err, stream) => {
-	    	  	  	expect(err).to.not.exist();
+				console.log(hash);
+				expect(err).to.not.exist();
 	    	  	  	let files = [];
 	    	  		stream.pipe(through.obj((file, enc, next) => {
 	    	  			file.content.pipe(concat((content) => {
@@ -100,36 +114,32 @@ function handleInit (err) {
 	    	  					if(err) {
 	    	  						return console.log(err);
 	    	  					}
-	    	  					console.log("The file was saved!");
+	    	  					console.log("The file was saved!!");
+	    	  				  
+	    	  				 
+	    	  				  //extracting archives 
+	    	  				  var unzip = new adm_zip('../public/'+fileName); 
+	    	  				  unzip.extractAllTo("../public/", /*overwrite*/true);
 	    	  				}); 
 	    	  			}));
 			  });//endGet
 	  	});  
-	  },3000);//endsettime
+	  },1500);//endsettime
 }
+
 //當 smartcontract 的 setEvent 被發射的時候，就會被如此接住
 producecontract.fileUploadEvent({}, function(err, eventdata) {
-	////////IPFS//////////
-	console.log('start');
-	const repoPath = 'ipfs-' + Math.random();
-	console.log(repoPath);
-	// Create an IPFS node
-	node = new IPFS({
-	  init: true,
-	  start: true,
-	  repo: repoPath
-	 
-	});	
+	
 	console.log('dataSet fired : ');
 	console.log(eventdata.args);
 	if(company === eventdata.args.company){
 		console.log("START DONLOAD");
 		fileUrl  = eventdata.args.url;
 		fileName = eventdata.args.filename;
-		//初始化node
-		node.init(handleInit);	
+		ipfsDownload();
 	}
 });//end event uploadfile
+
 
 
 
