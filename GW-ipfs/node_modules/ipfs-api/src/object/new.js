@@ -27,7 +27,7 @@ module.exports = (send) => {
         }
         data = (new Unixfs('directory')).marshal()
       } else {
-        data = new Buffer(0)
+        data = Buffer.alloc(0)
       }
 
       DAGNode.create(data, (err, node) => {
@@ -36,8 +36,6 @@ module.exports = (send) => {
         }
 
         if (node.toJSON().multihash !== result.Hash) {
-          console.log(node.toJSON())
-          console.log(result)
           return callback(new Error('multihashes do not match'))
         }
 

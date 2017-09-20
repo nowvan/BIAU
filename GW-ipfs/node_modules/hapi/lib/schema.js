@@ -94,7 +94,8 @@ internals.routeBase = Joi.object({
     json: Joi.object({
         replacer: Joi.alternatives(Joi.func(), Joi.array()).allow(null),
         space: Joi.number().allow(null),
-        suffix: Joi.string().allow(null)
+        suffix: Joi.string().allow(null),
+        escape: Joi.boolean().default(false)
     }),
     jsonp: Joi.string(),
     log: Joi.boolean(),
@@ -105,10 +106,7 @@ internals.routeBase = Joi.object({
             output: Joi.string().valid('data', 'stream', 'file', 'annotated').required()
         })
             .allow(false),
-        allow: [
-            Joi.string(),
-            Joi.array()
-        ],
+        allow: Joi.array().items(Joi.string()).single(),
         override: Joi.string(),
         maxBytes: Joi.number().integer().positive(),
         uploads: Joi.string(),
