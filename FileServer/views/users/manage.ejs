@@ -1,101 +1,140 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Manage</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<title>Manage</title>
+		<!-- Bootstrap Core CSS -->
+		<link href="/css/bootstrap.min.css" rel="stylesheet">
+		<!-- Custom Fonts -->
+		<link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+		<!-- Custom CSS -->
+		<link rel="stylesheet" href="/css/patros.css" >
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+			<![endif]-->
+		<link href="https://fonts.googleapis.com/css?family=Architects+Daughter" rel="stylesheet">
 
-	<script
-	src="http://code.jquery.com/jquery-1.9.1.min.js"
-	integrity="sha256-wS9gmOZBqsqWxgIVgA8Y9WcQOa7PgSIX+rPA0VL2rbQ="
-	crossorigin="anonymous"></script>
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-	<style type="text/css">
-		body{
-			background: #F7F7F7;	
-		}	
-	</style>
-	
+
+
+	<script language="javascript">
+		function Check()  // 验证表单数据有效性
+		{
+			
+			if (document.send.password.value!= document.send.confirm.value)
+			{
+				alert('密碼不一致!');
+				return false;
+			}
+
+			return true;
+		}
+	</script>
+
 </head>
-<body>
+<body data-spy="scroll">
 	<header>
-		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-			<div class="container-fluid">
-				<!-- Brand and toggle get grouped for better mobile display -->
+		<!-- Navigation -->
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
 				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#">Brand</a>
+					<a class="navbar-brand" href="/"><img width="250px" height="100px" src="/images/biau.png" alt="company logo" /></a>
 				</div>
-
-				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav">
-						<li class="active"><a href="/">Home <span class="sr-only">(current)</span></a></li>
-					</ul>
-					<form class="navbar-form navbar-left">
-						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Search">
-						</div>
-						<button type="submit" class="btn btn-default">Submit</button>
-					</form>
-					<ul class="nav navbar-nav navbar-right">
+					<ul class="nav navbar-nav navbar-right custom-menu">
+						<li class="active"><a href="/">Home</a></li>
 						<% if (companyname && authenticated) {%>
-						<li><a href="#"><%= companyname%>.<%= username %></a></li>
+						<li><a href="#"><%= companyname%>-<%= username %></a></li>
 						<li><a href="/users/manage">Manage</a></li>
 						<li><a href="/users/add_file">Add File</a></li>						
 						<li><a href="/users/signout">Sign Out</a></li>
 						<% }else{ %>
 						<li><a href="/users/signin">Log In</a></li>
 						<li><a href="/users/register">Register</a></li>
-						<% } %>			
+						<% } %>		
 					</ul>
-				</div><!-- /.navbar-collapse -->
-			</div><!-- /.container-fluid -->
+				</div>
+			</div>
 		</nav>
+		
 	</header>
 
 
-	
-<br><br>
-<div class="container theme-showcase" role="main">
+	<section id="contact">
+			<div class="container"> 
+				<div class="row">
+					<div class="col-md-12">
+						<div class="col-lg-12">
+							<!-- <div class="text-center color-elements">
+							<h2>Register</h2>
+							</div> -->
+						</div>
+					
+						<div class="col-lg-6 col-md-8">
+							
+								<div class="row">
+									
+									<br><br><br><br>
+									<h2><%= companyname%>.檔案</h2>
+									<div class="col-sm-12 height-contact-element">
+										<ul class="list-group">
+											<% for(var i = files.length-1 ; i>=0; i--){ %>
+											<li ><%- fileurl[i] %> <%= files[i].CreateDate %>
+												<a href='/apis/delete/<%= files[i].id %>' style='float:right;margin-right:15px;'> Delete</a>
+												<hr>
+													<!--	<a href='/users/modify/<%= files[i].id %>' style='float:right;margin-right:20px;'> Modify</a> -->
+											</li>
+													<% } %>	
+										</ul>
+									</div>
+									
+									
+								</div>
+							
+						</div>
+						<div class="col-lg-5 col-md-3 col-lg-offset-1 col-md-offset-1">
+							<br><br><br><br>
+							<h2>Restore</h2>
+							<ul class="list-group">
+								<% for(var i = dfiles.length-1 ; i>=0; i--){ %>
+								<li ><%- dfileurl[i] %> <%= dfiles[i].CreateDate %>
+									<a href='/apis/restore/<%= dfiles[i].id %>' style='float:right;margin-right:15px;'> Restore</a>
+									<hr>
+										<!--	<a href='/users/modify/<%= dfiles[i].id %>' style='float:right;margin-right:20px;'> Modify</a> -->
 
-<div class="page-header">
-        <h1><%= companyname%>.檔案</h1>
-      </div>
-
-<ul class="list-group">
-	<% for(var i = files.length-1 ; i>=0; i--){ %>
-	<li class="list-group-item"><%- fileurl[i] %> <%= files[i].CreateDate %>
-		<a href='/apis/delete/<%= files[i].id %>' style='float:right;margin-right:15px;'> Delete</a>
-			<!--	<a href='/users/modify/<%= files[i].id %>' style='float:right;margin-right:20px;'> Modify</a> -->
-	</li>
-			<% } %>	
-</ul>
-
-<div class="page-header">
-        <h1>Restore</h1>
-      </div>
-<ul class="list-group">
-	<% for(var i = dfiles.length-1 ; i>=0; i--){ %>
-	<li class="list-group-item"><%- dfileurl[i] %> <%= dfiles[i].CreateDate %>
-		<a href='/apis/restore/<%= dfiles[i].id %>' style='float:right;margin-right:15px;'> Restore</a>
-			<!--	<a href='/users/modify/<%= dfiles[i].id %>' style='float:right;margin-right:20px;'> Modify</a> -->
-	</li>
-			<% } %>	
-</ul>
-
-
-</div>
-</body>
-
+								</li>
+										<% } %>	
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</body>
 </html>
+
+
+
+
+
+
+
+
+
+
+

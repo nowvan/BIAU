@@ -4,6 +4,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var File = mongoose.model('File');
 var DFile = mongoose.model('DFile');
+var fs = require('fs');
 
 router.get('/restore/:id', function(req, res, next) {
 	

@@ -9,6 +9,14 @@ var fs = require('fs');
 router.get('/', function(req, res, next) {
     res.locals.companyname = req.session.companyname ;
     res.locals.username = req.session.username ;
+    res.locals.authenticated = req.session.logined;    	
+        res.render( 'index', {
+        });
+});
+
+router.get('/all', function(req, res, next) {
+    res.locals.companyname = req.session.companyname ;
+    res.locals.username = req.session.username ;
     res.locals.authenticated = req.session.logined;
 
     Logindata.find( function ( err, datas, count ){
@@ -19,11 +27,14 @@ router.get('/', function(req, res, next) {
 		  	console.log(datas[i].Username);
     	}
     	
-        res.render( 'index', {
+        res.render( 'all', {
             title : 'Company',
             companynames: companynames
         });
     });
 });
+
+
+
 
 module.exports = router;

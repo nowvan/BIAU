@@ -1,0 +1,40 @@
+/*
+A Design by ATIS
+Author: ATIS
+Author URL: http://atis.al/
+License: Creative Commons Attribution 4.0 International License
+License URL: http://creativecommons.org/licenses/by/4.0/
+*/
+
+----------------------------------
+DETAILS
+----------------------------------
+
+Is PATROS Template Free?
+
+Yes, this template is free to use for both commercial and non-commercial, but you have to provide a backlink to atis.al which is already included in the footer design by ATIS don’t edit or remove it.
+
+
+I want to remove atis.al link from footer?
+
+Please contact us if you want to remove the attribution in the footer. 
+You may alternately link to us from another inner-page of your website.
+
+
+
+Will this template work on iPhone, Android platforms, Tablets like kindle and Ipads?
+
+Yes, our template works with all Smartphones and Tablets. To, support all the devices we use Bootstrap Responisve Web Design.
+
+
+Do you provide WordPress Themes?
+
+Yes, we are working on it. You can contact us at www.atis.al
+
+
+Under which license you are providing this template?
+
+PATROS template is under Creative Commons Attribution 4.0 International License.
+
+
+
