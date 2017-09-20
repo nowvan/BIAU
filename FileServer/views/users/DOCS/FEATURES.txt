@@ -1,0 +1,50 @@
+Descritption:
+PATROS is a free and clean Responsive HTML5 Template for business / corporate websites. 
+It is built using Bootstrap 3.3.2 framework, responsive, HTML5 markup validated, easy to customize, and SEO friendly.
+
+Features:
+-One Page Template
+-3 Pages included: Homepage, Blog and Single-Post.
+-Bootstrap 3.3.2
+-HTML5 markup validated
+-CSS3 and HTML5 Speed Optimized
+-Fully Responsive
+-Form Validation
+-Ajax Contact Form
+-Retina Ready
+-Font Awesome Icons
+-Cross Browser Compatible (IE 10+, Chrome, FF, Safari, Opera)
+
+
+Credits:
+Bootstrap - http://getbootstrap.com
+Font Awesome Icons - http://fortawesome.github.io/Font-Awesome/
+jQuery QuickSand - https://github.com/razorjack/quicksand/
+
+Ajax Contact Form by Erland Muchasaj -  https://al.linkedin.com/pub/erland-muchasaj/57/aa2/1b6
+
+
+Image credits:
+
+http://www.unsplash.com
+Photo: "unsplash1.jpg" - Author: Daniela Cuevas
+Photo: "unsplash2.jpg" - Author: Luis Llerena
+Photo: "unsplash3.jpg" - Author: Luis Llerena
+Photo: "unsplash4.jpg" - Author: Blair Fraser
+Photo: "unsplash5.jpg" - Author: William Iven
+Photo: "unsplash6.jpg" - Author: Ilya
+Photo: "blog1.jpg" - Author: Ksenia Kudelkina
+Photo: "blog2.jpg" - Author: Dirk Sebregts
+Photo: "blog3.jpg" - Author: Sebastian Boguszewicz
+Photo: "blog-photo1.jpg" - Author: Rula Sibai
+Photo: "blog-photo2.jpg" - Author: Jeff Sheldon
+Photo: "blog-photo3.jpg" - Author: Jeff Sheldon
+Photo: "port1.jpg" - Author: Jeff Sheldon
+Photo: "port2.jpg" - Author: Jay Wennington
+Photo: "port3.jpg" - Author: Drew Patrick
+Photo: "port4.jpg" - Author: Pawel Kadysz
+Photo: "port5.jpg" - Author: Aleks Dorohovich
+Photo: "port6.jpg" - Author: Glen Carrie
+
+https://pixabay.com/
+Photo: "person1.jpg" - Author: Unsplash
