@@ -30,14 +30,14 @@ const Buffer = require('safe-buffer').Buffer;
 var node;
 var hashToPass;
 var fileToAdd;
-var contractAddr = "0x7da72b8d6ad869d88348468321f616ab5c656e7d";
+var contractAddr = "0x77cd3b8c15919354bd9c1a77210e981b24c541be";
 
 
 
 
 //**IPFS功能
 //產生IPFS節點
-const repoPath = 'Upload';
+const repoPath = 'server';
 node = new IPFS({
 	init: true,
 	repo: repoPath
