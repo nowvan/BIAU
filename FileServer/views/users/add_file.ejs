@@ -64,49 +64,34 @@
 
 
 	<section id="contact">
-			<div class="container"> 
-				<div id="container">
+		<div class="container"> 
+			<div id="container">
 				<header class="text-center"><h1></h1></header>
-	
 				<div class="col-lg-6 col-md-8">
-							<form class="inline" id="contactForm" method="post" action="/apis/register" onSubmit="return Check()" name="send"  >
-								<div class="row">
-									
-
-									<div class="col-sm-12 height-contact-element">
-										<br><br><br>
-										<hr>
-										<form id="upload_form" enctype="multipart/form-data" method="post" action="/apis/uploadfile">
-										<fieldset>
-											
-											<label><h4>上傳檔案</h4></label>
-											<input id="file_input" name="uploadfile" type="file">
-											<br><br>
-											<input type="submit" class="btn btn-md btn-custom btn-noborder-radius" value="Send It"/>
-										</fieldset>
-									</form>
-									<hr>
-									</div>
-									
-									
-									
-								</div>
+					<div class="row">
+						<div class="col-sm-12 height-contact-element">
+							<br><br><br>
+							<hr>
+							<form id="upload_form" enctype="multipart/form-data" method="post" action="/apis/uploadfile">
+								<fieldset>		
+									<label><h4>上傳檔案</h4></label>
+									<input id="file_input" name="uploadfile" type="file">
+									<br><br>
+									<input type="submit" class="btn btn-md btn-custom btn-noborder-radius" value="Send It"/>
+								</fieldset>
 							</form>
-				</div>
+							<hr>
+						</div>		
+					</div>
+				</div>	
 				<div class="col-lg-5 col-md-3 col-lg-offset-1 col-md-offset-1">
-										<br><br><br><br><br>
-										<span style="font-size:130px; font-family: 'Architects Daughter', cursive;" ><%= companyname %></span><br>
-									</div>
-
-
-
-
-				
-		
+					<br><br><br><br><br>
+					<span style="font-size:130px; font-family: 'Architects Daughter', cursive;" ><%= companyname %></span><br>
 				</div>
 			</div>
-		</section>
-	</body>
+		</div>
+	</section>
+</body>
 </html>
 
 
