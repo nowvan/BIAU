@@ -30,7 +30,7 @@ const Buffer = require('safe-buffer').Buffer;
 var node;
 var hashToPass;
 var fileToAdd;
-var contractAddr = "0x77cd3b8c15919354bd9c1a77210e981b24c541be";
+var contractAddr = "0xc11dceaa52790acc593e72bc7b033f943eefc6d9";
 
 
 
@@ -139,7 +139,7 @@ router.post('/uploadfile', function(req, res) {
 			
 			web3.setProvider(new web3.providers.HttpProvider(ethereumUri));
 			function contractControl(producecontract, eth) {	
-				var txHash = producecontract.putFileInfo(req.session.companyname,req.file.originalname,hashToPass,"50塊!!",
+				var txHash = producecontract.putFileInfo(req.session.companyname,req.file.originalname,hashToPass,"備註",
 				        {
 							from: eth.accounts[0],
 							gas: 3141592
