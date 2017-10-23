@@ -31,6 +31,7 @@ var adm_zip = require('adm-zip');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var listfile = require('./routes/listfile');
 var app = express();
 
 // view engine setup
@@ -46,6 +47,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/users', users);
+app.use('/file',listfile); 
 
 const ethereumUri = 'http://localhost:8545';
 var web3 = new Web3();
@@ -54,7 +56,7 @@ web3.setProvider(new web3.providers.HttpProvider(ethereumUri));
 var company = "google";
 var fileUrl;
 var fileName;
-var contractAddr = "0xd12d45cab9d5b7a045665dd0a92c7174d436fead";
+var contractAddr = "0xc11dceaa52790acc593e72bc7b033f943eefc6d9";
 var node;
 
 
@@ -126,7 +128,9 @@ producecontract.fileUploadEvent({}, function(err, eventdata) {
 		console.log("start download");
 		fileUrl  = eventdata.args.url;
 		fileName = eventdata.args.filename;
-		ipfsDownload();
+		setTimeout(function(){
+			ipfsDownload();
+		},3000);
 	}
 });// end event uploadfile
 
