@@ -30,7 +30,7 @@ const Buffer = require('safe-buffer').Buffer;
 var node;
 var hashToPass;
 var fileToAdd;
-var contractAddr = "0xc11dceaa52790acc593e72bc7b033f943eefc6d9";
+var contractAddr = "0x77788b8949Fc3fE1F4c39C005EE9AC345c8e8bD2";
 
 
 

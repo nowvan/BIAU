@@ -56,7 +56,7 @@ web3.setProvider(new web3.providers.HttpProvider(ethereumUri));
 var company = "google";
 var fileUrl;
 var fileName;
-var contractAddr = "0xc11dceaa52790acc593e72bc7b033f943eefc6d9";
+var contractAddr = "0x03ECc071a5d09d28bB88cf180817d6a28d4b9D22";
 var node;
 
 
@@ -100,14 +100,14 @@ function ipfsDownload (err) {
 			    		expect(files).to.be.length(1);
 			    		expect(files[0].path).to.be.eql(hash);
 			    		var output = files[0].content;
-			    		fs.writeFile("../public/"+fileName, output, function(err) {
+			    		fs.writeFile("../public/data/"+fileName, output, function(err) {
 			    			if(err) {
 			    				return console.log(err);
 			    			}
 			    			console.log("The file was saved!!");
 			    			// 解壓縮檔案
-			    			var unzip = new adm_zip('../public/'+fileName);
-			    			unzip.extractAllTo("../public/",/*overwrite*/true); 
+			    			var unzip = new adm_zip('../public/data/'+fileName);
+			    			unzip.extractAllTo("../public/data/",/*overwrite*/true); 
 			    		}); 
 			    	}));
 		    	});// endGet
