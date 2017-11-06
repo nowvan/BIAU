@@ -2,21 +2,21 @@
 /*jshint -W055 */
 /* eslint-env mocha */
 /* eslint max-nested-callbacks: ["error", 8] */
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var fs = require('fs');
-var Web3 = require('web3');
-var request = require('request');
-var router = express.Router();
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const fs = require('fs');
+const Web3 = require('web3');
+const request = require('request');
+const router = express.Router();
 const IPFS = require('ipfs');
 const os = require('os');
-var chai = require('chai');
-var expect = chai.expect;
-var assert = chai.assert;
+const chai = require('chai');
+const expect = chai.expect;
+const assert = chai.assert;
 const dirtyChai = require('dirty-chai');
 chai.use(dirtyChai);
 const bs58 = require('bs58');
@@ -27,11 +27,13 @@ const isNode = require('detect-node');
 const concat = require('concat-stream');
 const through = require('through2');
 const Buffer = require('safe-buffer').Buffer;
-var adm_zip = require('adm-zip');
+const adm_zip = require('adm-zip');
+const md5 = require('md5');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
-var app = express();
+const index = require('./routes/index');
+const users = require('./routes/users');
+const listfile = require('./routes/listfile');
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -46,29 +48,32 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/users', users);
+app.use('/file',listfile); 
 
 const ethereumUri = 'http://localhost:8545';
-var web3 = new Web3();
-var eth = web3.eth;
+const web3 = new Web3();
+const eth = web3.eth;
 web3.setProvider(new web3.providers.HttpProvider(ethereumUri));
-var company = "黑松";
-var fileUrl;
-var fileName;
-var contractAddr = "0xd12d45cab9d5b7a045665dd0a92c7174d436fead";
-var node;
+const company = "nccu";
+const id = "5966e11cdd35d0149ca42c67";
+console.log(md5(id));
+const contractAddr = "0x1c55a0336dFf96842C90F2d589D96D5A6EC7d547";
+let node;
+let fileUrl;
+let fileName;
 
 
 // **IPFS功能
 // 建立IPFS節點
-const repoPath = 'GW2';
+const repoPath = 'GW';
 node = new IPFS({
   init: true,
   repo: repoPath,
   config: {
 	    Addresses: {
 	        Swarm: [
-	          "/ip4/0.0.0.0/tcp/4005",
-	          "/ip4/127.0.0.1/tcp/4006/ws",
+	          "/ip4/0.0.0.0/tcp/4007",
+	          "/ip4/127.0.0.1/tcp/4008/ws",
 	          "/libp2p-webrtc-star/dns4/star-signal.cloud.ipfs.team/wss"
 	        ]
 	      }
@@ -97,36 +102,148 @@ function ipfsDownload (err) {
 			    	}, () => {
 			    		expect(files).to.be.length(1);
 			    		expect(files[0].path).to.be.eql(hash);
-			    		var output = files[0].content;
-			    		fs.writeFile("../public/"+fileName, output, function(err) {
+			    		let output = files[0].content;
+			    		fs.writeFile("../public/data/"+fileName, output, function(err) {
 			    			if(err) {
 			    				return console.log(err);
 			    			}
 			    			console.log("The file was saved!!");
 			    			// 解壓縮檔案
-			    			var unzip = new adm_zip('../public/'+fileName);
-			    			unzip.extractAllTo("../public/",/*overwrite*/true); 
+			    			if(fileName.slice(-3) === "zip"){
+			    				let unzip = new adm_zip('../public/data/'+fileName);
+			    				unzip.extractAllTo("../public/data/",/*overwrite*/true);
+			    				console.log("解壓縮完成");
+			    			}
 			    		}); 
 			    	}));
 		    	});// endGet
 	  });  
 }
 
-
-
 // **智能合約
 // 建立合約變數
-var producecontract = web3.eth.contract(
-		[{"constant":true,"inputs":[{"name":"company","type":"string"}],"name":"getFileInfo","outputs":[{"name":"filename","type":"string"},{"name":"url","type":"string"},{"name":"newest","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"BIAU","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"company","type":"string"},{"name":"filename","type":"string"},{"name":"url","type":"string"},{"name":"newest","type":"string"}],"name":"putFileInfo","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"isBIAU","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"company","type":"string"},{"indexed":false,"name":"filename","type":"string"},{"indexed":false,"name":"url","type":"string"},{"indexed":false,"name":"newest","type":"string"}],"name":"fileUploadEvent","type":"event"}]
-		).at(contractAddr);
+const producecontract = web3.eth.contract(
+		[
+			  {
+			    "constant": true,
+			    "inputs": [
+			      {
+			        "name": "hash",
+			        "type": "string"
+			      }
+			    ],
+			    "name": "getFileInfo",
+			    "outputs": [
+			      {
+			        "name": "filename",
+			        "type": "string"
+			      },
+			      {
+			        "name": "url",
+			        "type": "string"
+			      },
+			      {
+			        "name": "newest",
+			        "type": "string"
+			      }
+			    ],
+			    "payable": false,
+			    "type": "function"
+			  },
+			  {
+			    "constant": true,
+			    "inputs": [],
+			    "name": "BIAU",
+			    "outputs": [
+			      {
+			        "name": "",
+			        "type": "address"
+			      }
+			    ],
+			    "payable": false,
+			    "type": "function"
+			  },
+			  {
+			    "constant": false,
+			    "inputs": [
+			      {
+			        "name": "hash",
+			        "type": "string"
+			      },
+			      {
+			        "name": "filename",
+			        "type": "string"
+			      },
+			      {
+			        "name": "url",
+			        "type": "string"
+			      },
+			      {
+			        "name": "newest",
+			        "type": "string"
+			      }
+			    ],
+			    "name": "putFileInfo",
+			    "outputs": [],
+			    "payable": false,
+			    "type": "function"
+			  },
+			  {
+			    "constant": false,
+			    "inputs": [],
+			    "name": "isBIAU",
+			    "outputs": [
+			      {
+			        "name": "",
+			        "type": "bool"
+			      }
+			    ],
+			    "payable": false,
+			    "type": "function"
+			  },
+			  {
+			    "inputs": [],
+			    "payable": false,
+			    "type": "constructor"
+			  },
+			  {
+			    "anonymous": false,
+			    "inputs": [
+			      {
+			        "indexed": false,
+			        "name": "hash",
+			        "type": "string"
+			      },
+			      {
+			        "indexed": false,
+			        "name": "filename",
+			        "type": "string"
+			      },
+			      {
+			        "indexed": false,
+			        "name": "url",
+			        "type": "string"
+			      },
+			      {
+			        "indexed": false,
+			        "name": "newest",
+			        "type": "string"
+			      }
+			    ],
+			    "name": "fileUploadEvent",
+			    "type": "event"
+			  }
+			]).at(contractAddr);
 // 接收合約發送的事件
 producecontract.fileUploadEvent({}, function(err, eventdata) {
 	console.log(eventdata.args);
-	if(company === eventdata.args.company){
+	if(md5(md5(id)+company+eventdata.args.filename+eventdata.args.url+eventdata.args.newest) === eventdata.args.hash){
 		console.log("start download");
 		fileUrl  = eventdata.args.url;
 		fileName = eventdata.args.filename;
-		ipfsDownload();
+		setTimeout(function(){
+			ipfsDownload();
+		},3000);
 	}
 });// end event uploadfile
 
@@ -135,7 +252,7 @@ producecontract.fileUploadEvent({}, function(err, eventdata) {
 // **express功能
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+let err = new Error('Not Found');
   err.status = 404;
   next(err);
 });

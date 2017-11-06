@@ -4,6 +4,18 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Logindata = mongoose.model('Logindata');
+var nodemailer = require('nodemailer');
+var md5 = require('md5');
+var credentials = require('../views/users/credentials');
+
+//創建寄信工具
+var mailTransport = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+        user: credentials.gmail.user,
+        pass: credentials.gmail.pass
+    }
+});
 
 
 router.post('/register', function(req, res, next) {
@@ -26,18 +38,35 @@ router.post('/register', function(req, res, next) {
 						Username : req.body.username,
 						Password : req.body.password,
 						CreateDate : Date.now()
-					}).save(function(err) {
+					}).save(function(err) { //將帳密儲存到資料庫裡
 						if (err) {
 							console.log('Logindata Fail to save to DB.');
 							return;
 						}
 						console.log('Logindata Save to DB.');
+						req.session.companyname = req.body.companyname;
+						req.session.username = req.body.username;
+						req.session.password = req.body.password;
+						req.session.logined = true;
+						res.redirect('../users/registersuccess');
+					        
+					        Logindata.find({
+					        	Companyname : req.body.companyname
+					        }, function(err, logindata, count) {
+						    		console.log(md5(logindata[0]._id));
+						    		mailTransport.sendMail({
+							        from: '"BIAU": biaufileserver@gmail.com',
+							        to: req.body.email,
+							        subject: 'BIAU感謝您的註冊',
+							        html: '<h2>BIAU感謝您的註冊</h2> <p>您之後的上傳密碼為'+md5(logindata[0]._id)+'請牢記</p>'
+							    }, function(err) {
+							        if(err){
+							            console.error('Unable to send confirmation: ' + err.stack);
+							        		}
+							    });
+					        });
 					});
-					req.session.companyname = req.body.companyname;
-					req.session.username = req.body.username;
-					req.session.password = req.body.password;
-					req.session.logined = true;
-					res.redirect('/');
+					
 				}
 				else{
 					req.session.logined = false;

@@ -5,6 +5,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var File = mongoose.model('File');
 var DFile = mongoose.model('DFile');
+var Logindata = mongoose.model('Logindata');
 
 // 使用者註冊頁面
 router.get('/register', function(req, res, next) {
@@ -112,7 +113,7 @@ router.get('/add_file', function(req, res, next) {
 });
 
 //檔案成功上傳頁面
-router.get('/uploadssuccess', function(req, res, next) {
+router.get('/uploadsuccess', function(req, res, next) {
     if ((!req.session.companyname) || (!req.session.logined)) {
         res.redirect('/');
         return;
@@ -120,7 +121,19 @@ router.get('/uploadssuccess', function(req, res, next) {
     res.locals.companyname = req.session.companyname ;
     res.locals.username = req.session.username ;
     res.locals.authenticated = req.session.logined;
-    res.render('users/uploadssuccess');
+    res.render('users/uploadsuccess');
+});
+
+//註冊成功顯示頁面
+router.get('/registersuccess', function(req, res, next) {
+    if ((!req.session.companyname) || (!req.session.logined)) {
+        res.redirect('/');
+        return;
+    }
+    res.locals.companyname = req.session.companyname ;
+    res.locals.username = req.session.username ;
+    res.locals.authenticated = req.session.logined;
+    res.render('users/registersuccess');
 });
 
 module.exports = router;

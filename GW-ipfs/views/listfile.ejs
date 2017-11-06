@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta http-equiv="refresh" content="300;url='/file'" />
+    <title>File</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/patros.css">
+    
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+    <body>
+        <div style="text-align:center;"><h1 >Gateway Files</h1></div>
+        <div class="col-xs-2">
+        </div>
+        <div class="col-xs-8">
+        <div class="row">
+            <% for(var i=0; i<result.length; i++) { %>
+                <div class="col-xs-3" style="text-align: center;">
+                    <a href="file/<%= result[i] %>">
+                    	<br>
+                        <div class="row" >
+                            <span class=" icon-stack " style="font-size:40px; ">
+            					<i class="fa fa-circle-o  icon-stack-base fa-spin" style="color:#4CA1F0"></i>
+								<i class="fa fa-file fa-stack-1x"></i>
+							</span>
+                        </div>
+                        <div class="row">
+                            <%= result[i] %>
+                        </div>
+                    </a>
+                </div>
+                <% } %>
+        </div>
+    	</div>
+        
+    </body>
+
+</html>

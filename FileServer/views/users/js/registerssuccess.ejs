@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<title>registersuccess</title>
+		<!-- Bootstrap Core CSS -->
+		<link href="/css/bootstrap.min.css" rel="stylesheet">
+		<!-- Custom Fonts -->
+		<link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+		<!-- Custom CSS -->
+		<link rel="stylesheet" href="/css/patros.css" >
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+			<![endif]-->
+		<link href="https://fonts.googleapis.com/css?family=Architects+Daughter" rel="stylesheet">
+
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	
+	
+
+
+</head>
+<body data-spy="scroll">
+	<header>
+		<!-- Navigation -->
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="/"><img width="250px" height="100px" src="/images/biau.png" alt="company logo" /></a>
+				</div>
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav navbar-right custom-menu">
+						<li class="active"><a href="/">Home</a></li>
+						<% if (companyname && authenticated) {%>
+						<li><a href="#"><%= companyname%>-<%= username %></a></li>
+						<li><a href="/users/manage">Manage</a></li>				
+						<li><a href="/users/add_file">Add File</a></li>
+						<li><a href="/users/signout">Sign Out</a></li>
+						<% }else{ %>
+						<li><a href="/users/signin">Log In</a></li>
+						<li><a href="/users/register">Register</a></li>
+						<li><a href="/users/forget">Forgot password</a></li>
+						<% } %>	
+					</ul>
+				</div>
+			</div>
+		</nav>
+		
+	</header>
+
+
+	<section id="contact">
+			<div class="container"> 
+				<div id="container">
+				<header class="text-center"><h1></h1></header>
+				<br><br><br><br>
+				<span style="font-size:130px; font-family: 'Architects Daughter', cursive;" >恭喜你註冊成功</span><br>
+				<h4 style="color: #4CA1F0">恭喜你註冊成功</h4></label>
+				<h4 >恭喜你註冊成功</h4></label>
+				</div>
+			</div>
+		</section>
+	</body>
+</html>
