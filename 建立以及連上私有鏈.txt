@@ -1,0 +1,70 @@
+//第一個node
+先安裝 ethereum
+
+到C:\Users\user1\AppData\Roaming\""Ethereum"" 資料夾裡新增genesis.json檔 如果要連同一條私有鏈， 所有人都應該有同一份genesis.json檔 
+
+geth --datadir "./privatechain" init genesis.json  ||初始化
+
+geth --networkid 123 --rpc --rpccorsdomain "*" --datadir "./privatechain" --port "30303" --rpcapi "db,eth,net,web3"  console ||連上鏈後可以繼續輸入指令
+
+再console裡輸入admin.nodeInfo之後將會印出json資料 裏頭的第一筆資料 
+例如: 
+enode: "enode://2436aad0dd6002aebaea85d1ada1481e83fcbcd7d666da030ffd7279b441626ac8084a1a9aa1a433af9db6dafe0a0f834a65c9abca5352fb3711248bce48088f@[::]:30303" 
+記起來  
+再將 [::] 改成你的ip位置
+如:"enode://2436aad0dd6002aebaea85d1ada1481e83fcbcd7d666da030ffd7279b441626ac8084a1a9aa1a433af9db6dafe0a0f834a65c9abca5352fb3711248bce48088f@192.168.1.103:30303"
+
+把上面有加上ip的字串存成static-nodes.json檔
+
+傳給之後要給其他人連的時候 能夠較方便的連線
+
+以後要連線就一樣輸入
+geth --networkid 123 --rpc --rpccorsdomain "*" --datadir "./privatechain" --port "30303" --rpcapi "db,eth,net,web3"  console ||連上鏈後可以繼續輸入指令
+/////////////////////////////////////////////////////////////
+//之後節點要連上私有鏈
+
+先安裝 ethereum
+
+到C:\Users\user1\AppData\Roaming\""Ethereum"" 資料夾裡新增genesis.json檔 如果要連同一條私有鏈， 所有人都應該有同一份genesis.json檔 
+
+geth --datadir "./privatechain" init genesis.json  ||初始化
+
+將第一個節點的static-nodes.json檔案放在privatechain資料夾裡
+輸入
+geth --networkid 123 --rpc --rpccorsdomain "*" --datadir "./privatechain" --port "30303" --rpcapi "db,eth,net,web3"  console ||連上鏈後可以繼續輸入指令
+//////////////////////////////////////////////////////////////
+指令有:
+
+admin.nodeInfo //查看節點訊息
+
+personal.newAccount() //創新帳號
+
+eth.coinbase //查看目前礦工帳號
+
+eth.accounts[0] //查看帳戶訊息
+
+miner.start(1) //開始挖礦
+
+miner.stop() //停止挖礦 
+
+eth.getBalance(eth.accounts[0]) //查看帳戶餘額
+web3.fromWei(eth.getBalance(eth.accounts[0]), "ether") //查看帳戶餘額ether單位
+
+personal.unlockAccount(eth.accounts[0],"密碼",多久) //解鎖帳戶+解鎖時間
+
+//////////////////////////////////////////////////////////////
+參考網站 :
+
+創世塊裏頭的設定 :https://read01.com/zh-tw/L4MKDP.html#.WfwmCtCWbIV
+
+最基本的指令:
+https://forum.qtum.org/topic/127/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%A7%81%E9%93%BE%E4%B8%8E%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E9%83%A8%E7%BD%B2%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/2
+
+連接私有連三種方法:
+https://medium.com/taipei-ethereum-meetup/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%A7%81%E7%B6%B2%E5%BB%BA%E7%AB%8B-%E4%B8%80-43f8677fc9f8
+
+
+
+
+
+
