@@ -22,15 +22,16 @@ router.post('/register', function(req, res, next) {
 
 	Logindata.find({
 		Companyname : req.body.companyname
+		
 	}, function(err, logindatas, count) {
 		console.log(logindatas);
 		//檢查公司名稱有沒有被註冊過  怕其他人隨意註冊公司可以去修改別人的資料
 		if (logindatas.length === 0) {
 		
 			Logindata.find({
-				Username : req.body.username
+				Email:req.body.email
 			}, function(err, logindatas, count) {
-				//檢查使用者名稱有沒有被註冊過
+				//檢查email有沒有被註冊過
 				if (logindatas.length === 0) {
 					new Logindata({
 						Companyname : req.body.companyname,
@@ -53,12 +54,15 @@ router.post('/register', function(req, res, next) {
 					        Logindata.find({
 					        	Companyname : req.body.companyname
 					        }, function(err, logindata, count) {
-						    		console.log(md5(logindata[0]._id));
+					        		console.log(logindata[0]._id);
+					        		var hashid = md5(logindata[0]._id.toString('binary'));				        		
+					        		console.log(hashid);					        	
+//						    		console.log(md5(logindata[0]._id)); 錯的 需要轉編碼才行
 						    		mailTransport.sendMail({
 							        from: '"BIAU": biaufileserver@gmail.com',
 							        to: req.body.email,
 							        subject: 'BIAU感謝您的註冊',
-							        html: '<h2>BIAU感謝您的註冊</h2> <p>您之後的上傳密碼為'+md5(logindata[0]._id)+'請牢記</p>'
+							        html: '<h2>BIAU感謝您的註冊</h2> <p>您之後的上傳密碼為'+hashid+'請牢記</p>'
 							    }, function(err) {
 							        if(err){
 							            console.error('Unable to send confirmation: ' + err.stack);
@@ -71,7 +75,7 @@ router.post('/register', function(req, res, next) {
 				else{
 					req.session.logined = false;
 					res.render('users/register', {
-						message : "使用者名稱: " + req.body.username + " 被註冊過了喔 "
+						message : "email: " + req.body.username + " 被註冊過了喔 "
 					});
 				}				
 			});

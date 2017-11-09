@@ -57,7 +57,7 @@ web3.setProvider(new web3.providers.HttpProvider(ethereumUri));
 const company = "google";
 const id = "5966e11cdd35d0149ca42c67";
 console.log(md5(id));
-const contractAddr = "0x1c55a0336dFf96842C90F2d589D96D5A6EC7d547";
+const contractAddr = "0x3E03C27140bA68562954FAb8dB3299d7e01b2CC4";
 let node;
 let fileUrl;
 let fileName;

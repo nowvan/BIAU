@@ -15,11 +15,9 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/patros.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-			<![endif]-->
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+    integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+    crossorigin="anonymous"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
@@ -74,16 +72,16 @@
                             <form id="upload_form" enctype="multipart/form-data" method="post" action="/apis/uploadfile" onsubmit="return checkSubmit()">
                                 <label>
                                     <h4 style="color: #4CA1F0">上傳檔案</h4></label>
-                                <input id="uploadfile" name="uploadfile" type="file" />
+                                <input id="uploadfile" name="uploadfile" type="file" required/>
                                 <br>
                                 <label>
                                     <h4 style="color: #4CA1F0">備註訊息</h4></label>
                                     <br>
-                                <input type="text" class="form-control custom-labels" name="newest" id="newest" placeholder="在這輸入備註" data-validation-required-message="請輸入您的備註訊息">
+                                <input type="text" class="form-control custom-labels" name="newest" id="newest" placeholder="在這輸入備註" required  data-validation-required-message="請輸入您的備註訊息">
                                 <label>
                                     <h4 style="color: #4CA1F0">上傳密碼</h4></label>
                                     <br>
-                                <input type="text" class="form-control custom-labels" name="uploadpw" id="uploadpw" placeholder="在這輸入密碼" data-validation-required-message="請輸入您的上傳密碼">
+                                <input type="text" class="form-control custom-labels" name="uploadpw" id="uploadpw" placeholder="在這輸入密碼" required  data-validation-required-message="請輸入您的上傳密碼">
 
                                 <br>
                                 <br>
@@ -104,6 +102,7 @@
                 </div>
             </div>
         </div>
+
     </section>
 
     <script language="JavaScript" type="text/JavaScript"> 
@@ -112,14 +111,42 @@
 	{ 
 	    if (flag) 
 	    { 
-	        alert("請勿重複按鈕。"); 
+	        $('<div>').appendTo('body').addClass('alert alert-warning').html('請勿重複按提交按鈕').show().delay(1500).fadeOut(); 
 	        return false;  
 	    } 
 	    flag=true; 
-	    alert("檔案上傳中")
+        $('<div>').appendTo('body').addClass('alert alert-success').html('檔案上傳中').show().delay(1500).fadeOut();
 	    return true; 
 	} 
 	</script> 
+    <style type="text/css">
+        .alert {
+            display: none;
+            position: fixed;
+            top: 10%;
+            left: 50%;
+            min-width: 200px;
+            margin-left: -100px;
+            z-index: 99999;
+            padding: 15px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+
+
+
+        .alert-success {
+            color: #31708f;
+            background-color: #d9edf7;
+            border-color: #bce8f1;
+        }
+
+        .alert-warning {
+            color: #8a6d3b;
+            background-color: #fcf8e3;
+            border-color: #faebcc;
+        }
+    </style>
 </body>
 
 </html>

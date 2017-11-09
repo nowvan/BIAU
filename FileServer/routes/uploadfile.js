@@ -31,7 +31,7 @@ const md5 = require('md5');
 let node;
 let hashToPass;
 let fileToAdd;
-const contractAddr = "0x1c55a0336dFf96842C90F2d589D96D5A6EC7d547";
+const contractAddr = "0x3E03C27140bA68562954FAb8dB3299d7e01b2CC4";
 
 
 
@@ -148,7 +148,6 @@ router.post('/uploadfile', function(req, res) {
 				//console.log('txHash is : ' + txHash);
 				console.log('upload to blockchain');
 				res.redirect('/users/uploadsuccess');
-				console.log('file uploaded');
 			}
 	
 			const producecontract = web3.eth.contract(

@@ -1,0 +1,72 @@
+
+³«//²Ä¤@­Ónode
+¥ý¦w¸Ë ethereum
+
+¨ìC:\Users\user1\AppData\Roaming\""Ethereum"" ¸ê®Æ§¨¸Ì·s¼Wgenesis.jsonÀÉ ¦pªG­n³s¦P¤@±ø¨p¦³Ãì¡A ©Ò¦³¤H³£À³¸Ó¦³¦P¤@¥÷genesis.jsonÀÉ 
+
+geth --datadir "./privatechain" init genesis.json  ||ªì©l¤Æ
+
+geth --networkid 123 --rpc --rpccorsdomain "*" --datadir "./privatechain" --port "30303" --rpcapi "db,eth,net,web3"  console ||³s¤WÃì«á¥i¥HÄ~Äò¿é¤J«ü¥O
+
+¦Aconsole¸Ì¿é¤Jadmin.nodeInfo¤§«á±N·|¦L¥Xjson¸ê®Æ ùØÀYªº²Ä¤@µ§¸ê®Æ 
+¨Ò¦p: 
+enode: "enode://2436aad0dd6002aebaea85d1ada1481e83fcbcd7d666da030ffd7279b441626ac8084a1a9aa1a433af9db6dafe0a0f834a65c9abca5352fb3711248bce48088f@[::]:30303" 
+°O°_¨Ó  
+¦A±N [::] §ï¦¨§Aªºip¦ì¸m
+¦p:"enode://2436aad0dd6002aebaea85d1ada1481e83fcbcd7d666da030ffd7279b441626ac8084a1a9aa1a433af9db6dafe0a0f834a65c9abca5352fb3711248bce48088f@192.168.1.103:30303"
+
+§â¤W­±¦³¥[¤Wipªº¦r¦ê¦s¦¨static-nodes.jsonÀÉ
+
+¶Çµ¹¤§«á­nµ¹¨ä¥L¤H³sªº®É­Ô ¯à°÷¸û¤è«Kªº³s½u
+
+¥H«á­n³s½u´N¤@¼Ë¿é¤J
+geth --networkid 123 --rpc --rpccorsdomain "*" --datadir "./privatechain" --port "30303" --rpcapi "db,eth,net,web3"  console ||³s¤WÃì«á¥i¥HÄ~Äò¿é¤J«ü¥O
+/////////////////////////////////////////////////////////////
+//¤§«á¸`ÂI­n³s¤W¨p¦³Ãì
+
+¥ý¦w¸Ë ethereum
+
+¨ìC:\Users\user1\AppData\Roaming\""Ethereum"" ¸ê®Æ§¨¸Ì·s¼Wgenesis.jsonÀÉ ¦pªG­n³s¦P¤@±ø¨p¦³Ãì¡A ©Ò¦³¤H³£À³¸Ó¦³¦P¤@¥÷genesis.jsonÀÉ 
+
+geth --datadir "./privatechain" init genesis.json  ||ªì©l¤Æ
+
+±N²Ä¤@­Ó¸`ÂIªºstatic-nodes.jsonÀÉ®×©ñ¦bprivatechain¸ê®Æ§¨¸Ì
+¿é¤J
+geth --networkid 123 --rpc --rpccorsdomain "*" --datadir "./privatechain" --port "30303" --rpcapi "db,eth,net,web3"  console ||³s¤WÃì«á¥i¥HÄ~Äò¿é¤J«ü¥O
+//////////////////////////////////////////////////////////////
+«ü¥O¦³:
+
+admin.nodeInfo //¬d¬Ý¸`ÂI°T®§
+
+personal.newAccount() //³Ð·s±b¸¹
+
+eth.coinbase //¬d¬Ý¥Ø«eÄq¤u±b¸¹
+
+eth.accounts[0] //¬d¬Ý±b¤á°T®§
+
+miner.start(1) //¶}©l«õÄq
+
+miner.stop() //°±¤î«õÄq 
+
+eth.getBalance(eth.accounts[0]) //¬d¬Ý±b¤á¾lÃB
+web3.fromWei(eth.getBalance(eth.accounts[0]), "ether") //¬d¬Ý±b¤á¾lÃBether³æ¦ì
+
+personal.unlockAccount(eth.accounts[0],"±K½X",¦h¤[) //¸ÑÂê±b¤á+¸ÑÂê®É¶¡
+
+//////////////////////////////////////////////////////////////
+°Ñ¦Òºô¯¸ :
+
+³Ð¥@¶ôùØÀYªº³]©w :https://read01.com/zh-tw/L4MKDP.html#.WfwmCtCWbIV
+
+³Ì°ò¥»ªº«ü¥O:
+https://forum.qtum.org/topic/127/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%A7%81%E9%93%BE%E4%B8%8E%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E9%83%A8%E7%BD%B2%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/2
+
+³s±µ¨p¦³³s¤TºØ¤èªk:
+https://medium.com/taipei-ethereum-meetup/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%A7%81%E7%B6%B2%E5%BB%BA%E7%AB%8B-%E4%B8%80-43f8677fc9f8
+
+
+
+
+
+
+«

@@ -55,9 +55,9 @@ const web3 = new Web3();
 const eth = web3.eth;
 web3.setProvider(new web3.providers.HttpProvider(ethereumUri));
 const company = "nccu";
-const id = "5966e11cdd35d0149ca42c67";
+const id = "5a03cb9c8cdc8a6115485f87";
 console.log(md5(id));
-const contractAddr = "0x1c55a0336dFf96842C90F2d589D96D5A6EC7d547";
+const contractAddr = "0x3E03C27140bA68562954FAb8dB3299d7e01b2CC4";
 let node;
 let fileUrl;
 let fileName;
@@ -72,8 +72,8 @@ node = new IPFS({
   config: {
 	    Addresses: {
 	        Swarm: [
-	          "/ip4/0.0.0.0/tcp/4007",
-	          "/ip4/127.0.0.1/tcp/4008/ws",
+	          "/ip4/0.0.0.0/tcp/4009",
+	          "/ip4/127.0.0.1/tcp/4010/ws",
 	          "/libp2p-webrtc-star/dns4/star-signal.cloud.ipfs.team/wss"
 	        ]
 	      }
