@@ -1,5 +1,4 @@
 # BIAU
 區塊鏈+IPFS家用閘道器自動更新
+用私有鏈來部署智能合約
 
-testRPC 位址
-testrpc -m "hill curtain grid bar walnut joke myth alert arctic canal slight idle"
