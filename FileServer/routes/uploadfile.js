@@ -36,7 +36,7 @@ const contractAddr = "0x3E03C27140bA68562954FAb8dB3299d7e01b2CC4";
 
 
 //**IPFS功能
-//產生IPFS節點
+//建立IPFS節點，取名為GW，其中config中可設定port，以便於在同一台電腦中執行兩個節點
 const repoPath = 'server';
 node = new IPFS({
 	init: true,
@@ -50,6 +50,7 @@ function ipfsUpload (err) {
 	    throw err;
 	  }
 	  node.start(() => {
+		  //node.files.add為IPFS中上傳檔案的函式，將指定路徑的檔案上傳至IPFS網絡，並回傳一組hash值
 		  node.files.add(fileToAdd, function (err, res) {
 			  if (err || !res) {
 				  return console.error('Error - ipfs files add', err, res);

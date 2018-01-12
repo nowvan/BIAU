@@ -70,8 +70,8 @@ let fileName;
 
 
 // **IPFS功能
-// 建立IPFS節點
-const repoPath = 'GW';
+//建立IPFS節點，取名為GW2，其中config中可設定port，以便於在同一台電腦中執行兩個節點
+const repoPath = 'GW2';
 node = new IPFS({
   init: true,
   repo: repoPath,
@@ -93,7 +93,8 @@ function ipfsDownload (err) {
 	    throw err;
 	  }
 	  node.start(() => {
-		  const hash = fileUrl;	    
+		  const hash = fileUrl;	 
+		  	//node.files.get為IPFS中利用hash值下載檔案的函式，將取的的檔案以stream的方式呈現，再寫入指定路徑的檔案，完成下載
 		    	node.files.get(hash, (err, stream) => {
 				expect(err).to.not.exist();
 				let files = [];
