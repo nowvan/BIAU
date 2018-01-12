@@ -54,9 +54,15 @@ const ethereumUri = 'http://localhost:8545';
 const web3 = new Web3();
 const eth = web3.eth;
 web3.setProvider(new web3.providers.HttpProvider(ethereumUri));
+//comany與id為不同閘道器需修改的地方  
+//公司必須是註冊的公司名稱
+//id為產生二次加密時需要的亂碼 在這我是使用mongoDB裡新增資料後自動產生的id來當作加密解密的亂碼
 const company = "google";
 const id = "5966e11cdd35d0149ca42c67";
-console.log(md5(id));
+//使用md5來加密 再測試時能將二次密碼印出方便測試
+//console.log(md5(id));
+
+//連接智能合約位置
 const contractAddr = "0x3E03C27140bA68562954FAb8dB3299d7e01b2CC4";
 let node;
 let fileUrl;
@@ -246,7 +252,6 @@ producecontract.fileUploadEvent({}, function(err, eventdata) {
 		},3000);
 	}
 });// end event uploadfile
-
 
 
 // **express功能

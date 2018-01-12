@@ -31,9 +31,8 @@ const md5 = require('md5');
 let node;
 let hashToPass;
 let fileToAdd;
+//智能合約位置
 const contractAddr = "0x3E03C27140bA68562954FAb8dB3299d7e01b2CC4";
-
-
 
 
 //**IPFS功能
@@ -65,7 +64,7 @@ function ipfsUpload (err) {
 }
 
 
-//**express
+
 router.post('/uploadfile', function(req, res) {	
 	//檔案存入路徑
 	const path = '../public/uploads/'+ req.session.companyname;
@@ -74,7 +73,7 @@ router.post('/uploadfile', function(req, res) {
 			console.log('failed to create directory', err);
 		} 
 	});
-	//multer儲存資訊
+	//multer儲存檔案資訊
 	let originalname;
 	let storage = multer.diskStorage({
 		destination : function(req, file, callback) {
@@ -139,6 +138,7 @@ router.post('/uploadfile', function(req, res) {
 			
 			web3.setProvider(new web3.providers.HttpProvider(ethereumUri));
 			function contractControl(producecontract, eth) {	
+				//將資料經過md5加密後上傳至智能合約
 				let md5hash = md5(req.body.uploadpw+req.session.companyname+req.file.originalname+hashToPass+req.body.newest);
 				let txHash = producecontract.putFileInfo(md5hash,req.file.originalname,hashToPass,req.body.newest,
 				        {
