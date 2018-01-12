@@ -36,7 +36,7 @@ const contractAddr = "0x3E03C27140bA68562954FAb8dB3299d7e01b2CC4";
 
 
 //**IPFS功能
-//建立IPFS節點，取名為GW，其中config中可設定port，以便於在同一台電腦中執行兩個節點
+//建立IPFS節點，取名server
 const repoPath = 'server';
 node = new IPFS({
 	init: true,
