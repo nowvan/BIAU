@@ -2,7 +2,8 @@
 區塊鏈+IPFS家用閘道器自動更新
 用私有鏈來部署智能合約
 
-安裝步驟
+##安裝步驟
+
 1.
 從https://github.com/nowvan/BIAU 下載至電腦
 
